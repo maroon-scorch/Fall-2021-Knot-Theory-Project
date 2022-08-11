@@ -1,0 +1,47 @@
+\begin{theorem} Let X be the union of two open and path-connected topological spaces A and B, and $A \cap B$ is path-connected and non-empty. Then we have that:
+\[\pi_1(X) \cong \pi_1(A) *_{\pi_1(A \cap B)} \pi_1(B)\]
+where $\pi_1(X)$ is isomorphic to the free product of $\pi_1(A)$ and $\pi_1(B)$ with amalgamation of the $\pi_1(A \bigcap B)$ with injective homomorphisms $f_i: \pi_1(A \cap B) \to \pi_1(A)$ and $f_j: \pi_1(A \cap B) \to \pi_1(B)$ being the homomorphisms induced by the inclusion maps $i: A \cap B \to A$ and $j: A \cap B \to B$ respectively.
+\end{theorem}
+\noindent A lot of times calculating fundamental groups of certain spaces can feel like a hyper-case-specific solution for each space given. However, the use of Van Kampen's Theorem can help to simplify a lot of complications that may arise in more elementary methods.\\\\
+We will run a few examples to give the reader a feel of the utility brought forth by Van Kampen's Theorem.
+\begin{example}[Union of two Simply Connected Spaces]
+Let X be the union of two open and path-connected topological spaces A and B, if A and B are both simply-connected, and $A \cap B$ is path-connected and non-empty, then X is also simply connected.
+\begin{proof}
+Since A and B are simply connected, we know their fundamental groups have presentations:
+\[\pi_1(A) = \langle \O\ |\ \O\rangle\]
+\[\pi_1(B) = \langle \O\ |\ \O\rangle\]
+\[\pi_1(A \bigcap B) = \langle a_1, ..., a_n\ |\ r_1, ..., r_m\rangle\]
+Then by Van Kampen's Theorem, we know that:
+\[\pi_1(X) = \langle \O \cup \O\ |\ .....\rangle\]
+Regardless of how many relations $\pi_1(A \bigcap B)$ gives to $\pi_1(X)$, we know that the generators of $$\pi_1(X) = \pi_1(A) *_{\pi_1(A \cap B)} \pi_1(B)$$ has 0 generators. So $\pi_1(X)$ is the trivial group,\\\\
+Since X is path-connected, and $\pi_1(X)$ is trivial, X is simply connected.
+\end{proof}
+\end{example}
+
+\begin{example}[Simply Connected Intersection]
+Let X be the union of two open and path-connected topological spaces A and B, if $A \cap B$ is simply connected, then $\pi_1(X) \cong \pi_1(A)*\pi_1(B)$
+\begin{proof}
+$\pi_1(A), \pi_(B)$ have presentations
+\[\pi_1(A) = \langle A_G\ |\ A_R\rangle\]
+\[\pi_1(B) = \langle B_G\ |\ B_R\rangle\]
+Since $A \bigcap B$ is simply connected, 
+\[\pi_1(A \cap B) = \langle \O\ |\ \O\rangle\]
+Then by Van Kampen's Theorem, we know that:
+\[\pi_1(X) = \langle A_G \cup B_G\ |\ A_R \cup B_R \cup \O\rangle\]
+which is the free product of $\pi_1(A)$ and $\pi_1(B)$.
+\end{proof}
+\end{example}
+
+\begin{example}[A plane with $n$ points removed]
+Let S be $\mathbb{R}^2$ with $n$ points removed, then we claim that $\pi_1(S)$ is the free group of rank $n$.
+\begin{proof}
+We will prove this with induction.\\\\
+When $n = 0$, we know $S = \mathbb{R}^2$ and $\pi_1(\mathbb{R}^2)$ is the trivial group, which is the free group of rank 0\\\\
+When $n = 1$, we know S deformation retracts to $S^1$, and $\pi_1(S^1) \cong \mathbb{Z}$, which is the free group of rank 1.\\\\
+Now suppose our inductive hypothesis is true until $n = k$, then we wish to prove with $\mathbb{R}^2$ with $k+1$ points removed has fundamental group being the free group of rank $k+1$. Indeed, we can draw a line L through S such that there are $r$ points on one side of the line and $(k + 1) - r$ points on the opposite side. We can choose L such that $r$ is at least 1.\\\\
+Now consider open, path-connected set U, V such that U covers the side of L with r points and over the line L by a distance of less than $\epsilon$ with respect to L, and V covers the side of L with $(k+1)-r$ points and over the line L by a distance of less than $\epsilon$ with respect to L. Furthermore, $\epsilon$ can be chosen such that there are no punctures in $U \bigcap V$.\\\\
+By our inductive hypothesis and the fact that it holds on $n = 0, 1$. we know that $U$ homotopies to a plane with $r$ punctures, so $\pi_1(U)$ is a free group of rank r, $V$ homotopies to a plane with $(k+1)-r$ punctures, so $\pi_1(V)$ is a free group of rank $(k+1)-r$, and finally $U \bigcap V$ homotopes to a plane with 0 punctures, so $\pi_1(U \cap V)$ is trivial and $U \cap V$ is simply connected.\\\\
+Thus, by Van Kampen and Example 3.3, $\pi_1(S)$ is just the free product of $\pi_1(U)$ and $\pi_1(V)$, so $\pi_1(S)$ is just the free group of rank $r + (k+1) - r = k+1$. This concludes the inductive steps.\\\\
+Thus, the fundamental group of $\Rbb^2$ with $n$ punctures is exactly the free group of rank $n$.
+\end{proof}
+\end{example}

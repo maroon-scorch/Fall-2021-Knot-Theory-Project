@@ -1,0 +1,229 @@
+\documentclass{article}
+\input{setup.tex}
+
+\renewcommand*\contentsname{Table of Content}
+
+\title{Van Kampen's Theorem and the Wirtinger Presentation}
+\author{Alice Foster, Mattie Ji}
+\date{Updated: December 12th, 2021}
+
+\begin{document}
+
+\maketitle
+
+
+
+\section*{Introduction:}
+The ability to distinguish between ``different" knots is central to knot theory; therefore, throughout history, knot theorists have approached this classification problem in a variety of ways. Our Final Project aims to introduce a popular method of studying knot theory from the perspective of Algebraic Topology, using Van Kampen's theorem to calculate the fundamental group of the complement of knots.\\\\
+We will begin by a brief introduction of mathematical knots and knot groups in Section $1$. We will then establish the notion of free groups, groups presentations, and other tools in Section $2$. We need these definitions to understand how to distinguish knots. We will discuss Van Kampen's Theorem in Section $3$, which employs free groups to describe how the fundamental groups of open subsets of a space can generate the fundamental group of the space. Finally, in Section $4$, we will use Van Kampen's Theorem to write a group presentation of a given knot, known as the \textit{Wirtlinger Presentation}. We use these presentations to distinguish knots.\\\\
+This project assumes basic knowledge in Point-Set and Algebraic Topology, as well as Group Theory. This was drawn in part from Paul Armstrong's \textit{Basic Topology} \cite{armstrong_1983} and James Munkres's \textit{Topology} \cite{munkres2000topology}.
+
+\tableofcontents
+
+\newpage
+\section{What is a knot?}
+\input{sections/knot.tex}
+
+\newpage
+\input{sections/free_group.tex}
+
+\newpage
+\section{What is Van Kampen's Theorem?}
+\input{sections/van_kampen.tex}
+
+\newpage
+\section{Applications of Van Kampen's Theorem in Knot Theory}
+This section was learned and adapted from Rolfsen's book ``Knots and Links" \cite{rolfsen_2004}.\\\\
+So far, we have seen some applicability of Van Kampen's Theorem in the calculation of fundamental groups. However, it seems fairly limited in a case-by-case scenario because one would need to find the specific subspaces they are looking for with a given space when using Van Kampen's Theorem.\\\\
+Therefore, one might ask if there's a more general procedure to calculate the knot group of a given knot so that we could skip the laborious work of calculating the knot group on a case-by-case basis.\\\\
+The answer is yes! And it comes from what's known as the {\bf ``Wirtinger Presentation"}.
+\begin{definition}
+Given an arbitrary knot diagram, we divide the knot into $n$ arcs. An arc is a section of the knot between two crossings. We assign the knot an orientation and label each arc $a_i$, where $a_i$ is connected to $a_{i - 1\ (mod\ n)}$ before and $a_{i + 1\ (mod\ n)}$ after.\\\\
+For each $a_i$,  we establish conventions for the direction of a loop $s_i$ around arc $a_i$. $s_i$ is a loop from basepoint $(0, 0, 1)$ down and under $a_i$ and back to the basepoint. We have the orientation of $s_i$ go from ``right to left" below arc a. We illustrate the orientation and structure of $s$ with respect to $a$ in Figures 1 and 2:
+
+\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=6in]{figures/orientations.png}
+		\caption{Here we show the direction of loop s around arc a.}
+		\label{fig:rtinstability}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\captionsetup{width=.75\linewidth}
+	\includegraphics[width=4in]{figures/s_loop.png}
+	\caption{Zooming out to see $s$, which begins and ends at the point (0,0,1).}
+	\label{fig:rtinstability}
+\end{figure}
+
+\noindent Figure 3 illustrates the division of the Trefoil Knot into three arcs with corresponding loops.\\\\
+
+\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=4in]{figures/tref_colors.png}
+		\caption{Example: The trefoil knot diagram has three crossings and thus three arcs, colored red, purple, and green respectively. Arrows indicate the knot's direction. Each $s_i$ travels below $a_i$ from right to left.}
+		\label{fig:rtinstability}
+\end{figure}
+
+\noindent Now we can consider the equivalence classes of loops at a crossing, using our orientation convention. Any crossing in a knot diagram involves three arcs: two for the part of the knot on the bottom of the crossing and one for the part on top. Three distinct loops encircle the arcs. We let $s_i$ be the (equivalence class of the) loop that travels around arc $a_i$. The image in Figure 4 and 5 below shows how loops are oriented at the two types of crossings.
+
+\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=6in]{figures/loops_s1.png}
+		\caption{Loops $s1, s2, s3$ at crossing 1. $a_3$ travels towards the bottom left corner of the page. The right hand image demonstrates how to compose the three loops to get a loop that is homotopic to the identity.}
+		\label{fig:rtinstability}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=6in]{figures/loops_s2.png}
+		\caption{Loops $s1, s2, s3$ at crossing 2. $a_3$ travels towards the upper right corner of the page.}
+		\label{fig:rtinstability}
+	\end{figure}
+\end{definition}	
+	
+\noindent From the first diagram (Figure 4), we see that composing the loops in the following way gives the relation:
+\[s_3s_2s_3^{-1}s_1^{-1} = e\]
+And thus
+\[s_1 = s_3s_2s_3^{-1}\]
+\noindent Similarly, from the second diagram (Figure 5) we get the relation
+\[s_1s_3^{-1}s_2^{-1}s_3 = e\]
+And so
+\[s_2 = s_3s_1s_3^{-1}\]
+\noindent In general, for an arbitrary knot diagram with arcs $a_1, ..., a_n$, each of the arcs would have their corresponding $s_1, ..., s_n$. At each crossing from $a_i$ to $a_{(i + 1)\ (mod\ n)}$ with $a_k$ on top, let $j = (i + 1)\ (mod\ n)$, then there are two possible relations.\\\\
+Either,
+\[s_i = s_k(s_{j})s_k^{-1}\]
+Or,
+\[s_{j} = s_k(s_i)s_k^{-1}\]
+We will refer to the relation that holds as $r_i$.\\\\
+It turns out that we can find the knot group of a given knot using $s_i$ and $r_i$.
+
+\begin{claim}[The Wirtinger Presentation]
+The equivalence classes of the loops $s_i$ generate the knot group of $K$. This group, $\pi_1(\mathbb{R}^3\setminus K)$, has the following presentation:
+\[ \pi_1(\mathbb{R}^3\setminus K) \cong \langle s_1,s_2,...s_n\ |\ r_1,r_2,...r_n \rangle\] 
+where $r_i$ is the relation we get between the three loops involved in crossing $i$ in the knot diagram.
+\end{claim}
+
+\begin{example}[The Knot Group of a Trefoil]
+We observe that in Figure 3, each crossing is the second type of crossing. Crossing 2 is shown in Figure 5. Using Figure 5, we have the following relations from each crossing:
+
+\[r_1: s_3 = s_1s_2s_1^{-1}\]
+
+\[r_2: s_2 = s_3s_1s_3^{-1}\]
+
+\[r_3: s_1 = s_2s_3s_2^{-1}\]
+
+\noindent We obtain the presentation of the knot group of the trefoil:
+\[ \langle s_1,s_2,s_3\ |\ s_1s_2s_1^{-1} = s_3,\ s_3s_1s_3^{-1} = s_2,\ s_2s_3s_2^{-1} = s_1\rangle\ \]
+\end{example}
+
+\begin{example}[The Knot Group of an Unknot]
+An Unknot has just 1 arc $a_1$ with the conjugation relations $s_1s_1s_1^{-1} = s_1$, or equivalently that $s_1 = s_1$, so there's no non-trivial relations.\\\\
+Thus, the presentation of the knot group of the unknot is just:
+\[\langle s_1\ |\ s_1 = s_1\rangle  = \langle s_1\ |\ \O \rangle = \mathbb{Z}\]
+It can be shown that the knot group of the trefoil is not abelian and hence not isomorphic to $\mathbb{Z}$. Thus, the Trefoil and the Unknot are not equivalent knots.
+\end{example}
+
+\noindent The {\bf ``Wirtinger Presentation"} gives us a consistent algorithm in calculating the knot group of a given knot. Unsurprisingly, the heart of proving this algorithm lies in the clever application of Van Kampen's Theorem.
+
+\begin{proof}[Proof of Wirtinger Presentation]
+For any given knot diagram with $n$ arcs, we will homotope the diagram such that all of the knot is on the $xy$-plane (think of it as the cross section of the knot diagram) except for at each crossing, the lower knot is pulled to $z = -1$ to make a trench that falls below the knot above. This preserves the knot group of the original knot, and we will denote the new figure as $K$.\\\\
+Figure 6 below shows an example of what the Trefoil Knot would look like under the transformation we described above:
+	\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=.5\linewidth]{figures/trefoil_crossings.png}
+		\caption{This is the Trefoil Knot under our transformation, notice that at each crossing the lower knot falls from $z = 0$ to $z = -1$ to make a ``trench."}
+		\label{fig:rtinstability}
+	\end{figure}
+We will label the trenches $T_1, ..., T_n$, where $T_i$ is the trench formed when the arc $a_{i}$ turns to $a_{i + 1\ (mod\ n)}$.\\\\
+Clearly, $\mathbb{R}^3 - K$ is still path-connected, so the base point is irrelevant.\\\\
+Let $G = \pi_1(\mathbb{R}^3 - K)$, we will calculate G using Van Kampen's Theorem by appropriately dividing $\mathbb{R}^3 - K$ into a union of open, path-connected subspaces.\\\\
+Indeed, let $U = \{(x, y, z) \in \mathbb{R}^3\ |\ z \geq -1\} - K$.\\\\
+Let $W_1, ..., W_n$ be a sequence of subspaces where $W_i$ corresponds to a rectangular box under $T_i$ whose ceiling is at $z= -1$ but has $T_i$ removed, and the box is adjoined with an arc to $(0, 0, 1)$, which is the basepoint where the loops we are interested in originate from. The arc can be formed such that it's disjoint from $K$.\\\\
+Figure 7 below here shows what $W_i$ would look like:
+	\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=.3\linewidth]{figures/box.png}
+		\caption{This is an example of what $W_i$ would look like. Note that the knot is not part of $W_i$}
+		\label{fig:rtinstability}
+	\end{figure}
+We will choose each $W_i$ within $W_1, ..., W_n$ such that they are pairwise disjoint spaces. We can do this by limiting the size of the boxes.\\\\
+Let $V = cl(\mathbb{R}^3 - (U \cup W_1 \cup ... W_n))\bigcup A$, where V is the closure of the complement of U and all of $W_i$, adjoined with the set A, which is an arc to $(0, 0, 1)$ such that A is disjoint from K.\\\\
+Clearly, $\mathbb{R}^3 - K = U \cup (W_1 \cup  ... \cup W_n) \cup V$, and we will proceed to use Van Kampen's Theorem to calculate $\pi_1(\mathbb{R}^3 - K)$.\\\\
+{\bf 1. $\pi_1(U)$ is the free group of rank n:}\\\\
+We claim that $\pi_1(U) = \langle s_1, ..., s_n\ | \O\rangle$.\\\\
+The idea is that we can partition U up again as n arcs with their ends pinned $z = -1$ such that their intersections are all simply connected, and 1 leftover space that's simply connected and has simply connected intersection with the arc spaces. We will call the n spaces partitioned $X_1, ..., X_n$.\\\\
+Then $\pi_1(U)$ is the free product of all $\pi_1(X_i)$, as the amalgamation can be ignored as the intersections are simply connected.\\\\
+You can see in Figure 8 an illustration of said space.\\\\
+	\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=.3\linewidth]{figures/knot_loop.jpg}
+		\caption{This is an example of what $X_i$ would look like.}
+		\label{fig:rtinstability}
+	\end{figure}
+
+\noindent For any loop that's outside of the arc (the arc does not cross the loop), they can be homotoped to the constant loop. And for a given loop from basepoint $(0, 0, 1)$ that crosses the arc, which is just $s_i$, we can see that it generates the entire fundamental group.\\\\
+Thus, $\pi_1(X_i) = \langle s_i\ |\ \O\rangle$.\\\\
+Since $\pi_1(U)$ is the free product of n free groups of rank 1, we have that:
+\[\pi_1(U) = \langle s_1, ..., s_n\ |\ \O \rangle\]
+{\bf 2. Combining $W_1$ to U:}\\\\
+First we will start with $W_1$, then the rest of $W_2, ..., W_n$ follows similarly.\\\\
+Let $i: U \bigcap W_1 \to U$, $j: U \bigcap W_1 \to W_1$ be the two inclusion maps.\\\\
+By Van Kampen, we know that $\pi_1(U \bigcup W_1)$ is the free product of $\pi_1(U)$ and $\pi_1(W_1)$ with amalgamation $\pi_1(U \bigcap W_1)$ along with the homomorphism $i_*$, $j_*$.\\\\
+$W_1$ itself is clearly simply connected since it deformation retracts to a convex subset of $\mathbb{R}^3$.\\\\
+However, $A \bigcap W_1$ deformation retracts to a punctured plane (as illustrated in Figure 9):
+	\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=4in]{figures/def_retr.jpg}
+		\caption{This Figure illustrates the deformation retraction of $U \bigcap W_1$}
+		\label{fig:rtinstability}
+	\end{figure}
+Therefore $\pi_1(U \bigcap W_1)$ is the free group of rank 1, and we will denote it as $\pi_1(U \bigcap W_1) = \langle x |\O \rangle$.\\\\
+Since $W_1$ is simply connected, x is just going to be mapped to the identity by the induced homomorphism.\\\\
+When the generator x in $U \bigcap W_1$ is included into U, however, it has to either become one of the two relations described in the theorem. The following diagram in Figure 10 illustrates the process:
+	\begin{figure}[h!]
+		\centering
+		\captionsetup{width=.75\linewidth}
+		\includegraphics[width=4in]{figures/loop_above_plane.png}
+		\caption{We can see in this figure that the circle C when included in U can become the loop above.}
+		\label{fig:rtinstability}
+	\end{figure}
+Without the loss of generality, we say that for the induced homomorphism $i_*: \pi_1(U \bigcap W_1) \to \pi_1(U)$, $i_*(x) = s_ks_2s_k^{-1}s_1^{-1}$.\\\\
+Therefore, by Van Kampen's Theorem we know that:
+\[\pi_1(U \cup W_1) = \langle s_1, ..., s_n\ |\ i_*(x)j_*(x)\rangle = \langle s_1, ..., s_n\ |\ s_ks_2s_k^{-1}s_1^{-1} = e\rangle = \langle s_1, ..., s_n\ |\ r_1\rangle\]
+{\bf 3. Combining $W_2, ..., W_n$ to $U \bigcup W_1$:}\\\\
+The process for $\pi_1(A \cup W_1)$ and $\pi_1(W_2)$ is nearly identical since $W_2$ is simply connected, and $W_1$ and $W_2$ are disjoint, so $\pi_1(A \cup W_1 \cap W_2) = \mathbb{Z}$, and everything else follows similarly.\\\\
+So we have that:
+\[\pi_1(U \cup W_1 \cup W_2) = \langle s_1, ..., s_n\ |\ r_1, r_2\rangle\]
+And thus everything up to $S_n$ also follows similarly, so
+\[\pi_1(U \cup W_1 \cup ... W_n) = \langle s_1, ..., s_n\ |\ r_1, ..., r_n\rangle\]
+{\bf 4. Combining $V$ to $U \cup W_1 \cup ... W_n$}\\\\
+Clearly, V itself is simply connected since it deformation retracts to a convex subset of $\mathbb{R}^3$, and $(U \cup W_1 \cup ... W_n) \bigcap V$ is also simply connected. Therefore, combining V has no effect on the fundamental group, so:
+\[\pi_1(U \cup W_1 \cup ... W_n \cup V) = \langle s_1, ..., s_n\ |\ r_1, ..., r_n\rangle\]
+{\bf 5. Finishing the Proof:}\\\\
+Thus, we have that:
+\[\pi_1(\mathbb{R}^3 - K) = \pi_1(U \cup W_1 \cup ... W_n \cup V) = \langle s_1, ..., s_n\ |\ r_1, ..., r_n\rangle\]
+\end{proof}
+
+\newpage
+\section{Conclusion}
+We have investigated how to distinguish knots using knot groups and techniques in Algebraic Topology. Van Kampen's Theorem related the fundamental group of a space to the fundamental groups of open subspaces via free product of amalgamation. Furthermore, the Wirtinger Presentation, whose proof also employed Van Kampen's theorem, allowed us to find the knot group of any knot diagram.\\\\
+However, there are still some flaws in Wirtinger Presentation itself. It's often not obvious what a given group presentation should be, and simplifying them could prove to be troublesome. However, if the reader is interested in further readings, techniques such as Tietze transformations have been invented to simplify group presentations.\\\\
+Nevertheless, the Wirtinger Presentation itself serves as an elegant example at the heart of intersection between Algebraic Topology and Knot Theory, and it reinforces many unique insights Algebraic Topology helps to uncover in the most seemingly distant parts of mathematics.
+
+
+% bibliography style is set to SIAM here. you can experiment with other styles
+\bibliographystyle{siam}
+
+% this line includes all references cited in the document. 
+\bibliography{references.bib}
+ 
+\end{document}

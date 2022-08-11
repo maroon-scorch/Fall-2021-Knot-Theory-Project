@@ -1,0 +1,94 @@
+\section{Free Group and Group Presentations}
+Much of this section was based on Paolo Aluffi's \textit{Algebra : Chapter 0} \cite{aluffi2021algebra}.\\\\
+The idea of free groups arose from the question: given an arbitrary set A, what is the most ``efficient" way to construct a group, which we will call $F(A)$, from the set in the sense that there's as little amount of relations as possible (hence the name ``Free") in the constructed group based on the set A.\\\\
+One can imagine that in this new F(A), each element would essentially correspond to a random combination of elements from the set A itself. Indeed, that's where the motivation for a free group arises from.
+\begin{definition}[Letters] Let A be a set, and let $$A^{-1} = \{a^{-1} : a \in A\}$$ be the set of ``inverse symbols" of A, then we call the combined set $A \bigcup A^{-1}$ the letters of A.\\
+\end{definition}
+\begin{definition}[Word] A word w from A is a finitely written product of elements from $A\bigcup A^{-1}$, ie, a word of length n can be expressed as:
+\[w = a_0a_1...a_n\]
+for $a_i = b_i^{\pm 1}$ and $b_i \in A$\\\\
+For example, if $A = \{a, b\}$, then $w = abaab^{-1}$ is a word of length 5.\\\\
+The product of zero letters is also a word; it's called the empty word.\\\\
+Note that since there's no group properties yet, the word $w_1 = bb^{-1}$ and the word $w_2 = aa^{-1}$ are two different words.\\
+\end{definition}
+
+\begin{definition}[Reduction] Given a word w from A, we define a reduction operation $r: W(A) \to W(A)$ to be the process where r finds the first occurrence of $a^{-1}a$ or $aa^{-1}$ for any $a \in A$ in w and removes that term from w. If the word w has no occurrences of $a^{-1}a$ or $aa^{-1}$ for any $a \in A$, then $r(w) = w$.\\\\
+For example, if $A = \{a, b, c\}$, for the word $w = abcc^{-1}baa^{-1}$, then $r(w) = abbaa^{-1}$, and $r(r(w)) = abb$.\\
+\end{definition}
+
+\begin{definition}[Reduced Word]
+Let w be a word of length n from the set A. Then we call $r^{\lfloor \frac{n}{2} \rfloor}(w)$ a reduced word.
+\end{definition}
+\noindent The main idea of a reduced word is to get rid of the only relation in a group that we know for sure of that when the letter and its inverse are adjacent to one another, they should ideally become the identity in our group construction. A reduced word is essentially a word where no said adjacency can occur.\\\\
+Consequently, one can see that the definition given for the reduced word has no said adjacency because in any word of length n, there are at most $\lfloor \frac{n}{2} \rfloor$ occurrences of this adjacency, which would all be removed by r.\\
+
+\begin{definition}[Free Group]
+Let $F(A)$ be the set of all reduced words of A. Then one can verify that $F(A)$ is a group under the operation {\bf concatenation-reduction} where, for any $w, v \in F(A)$, $w = a_0a_1.._a_n$, $v = b_0b_1...b_n$:
+\[w \cdot_{F(A)} v = r(wv)\]
+where the word $wv = a_0a_1..a_nb_0b_1...b_n$.\\\\
+We call $F(A)$ with the operation given the {\bf free group} of A.\\
+\end{definition}
+
+\begin{example}
+There are some common examples of free groups you may be familiar with:
+\begin{enumerate}
+    \item $F(\O)$ is the trivial group.
+    \item $F(\{a\})$ consists of $\{..., a^{-1}a^{-1}, a^{-1}, \{\}, a, aa, ...\}$ is isomorphic to $\mathbb{Z}$.
+    \item If A is a finite set of cardinality n, then we call $F(A)$ the free group of rank n.
+\end{enumerate}
+\end{example}
+
+\noindent It turns out that every group G can be expressed as a quotient of a free group (just consider $F(G)$ and first isomorphism theorem), but often times one can express a group as a quotient of a free group generated with elements less than G. So in this senese, we can express every group G in terms of a sometimes simpler presentation of G in relations to a free group. This is also motivates the next definition below.
+\begin{definition}[Group Presentation] Let A be some set and $R \subset F(A)$ with normal closure N in $F(A)$, then the natural homomorphism $\phi: F(A) \to G$ that evaluates each word as a multiplication of its letters in G, is clearly surjective and has kernel $ker(\phi) = N$.\\\\
+Then we write $G = \frac{F(A)}{ker(\phi)}$ and denote its presentation as $G = \langle A | R \rangle = \langle A | r_1 = r_2 = ... = r_n = e \rangle$ for $r_i \in R$.\\\\
+A is called the {\bf generators} of G, and R is called the ${\bf relations}$ of G.
+\end{definition}
+\noindent Since every group is the quotient of a free group, every group has a group presentation!
+\begin{example} There are some familiar examples of presentations whose properties you may have seen already.
+\begin{enumerate}
+    \item Let $A = \{a_1, ..., a_n\}$, then $F(A) = \langle a_1, ..., a_n |\ \rangle$, that is, a free group has no relations.
+    \item Let $n \in \mathbb{N}$, then $\mathbb{Z}/n\mathbb{Z} \cong \langle x\ |\ x^n = e\rangle$
+    \item Let $D_{2n}$ be the dihedral group of the regular $n-gon$, then
+    \[D_{2n} \cong \langle r,f\ |\ r^n = e, f^2 = e, frf = r^{-1}\rangle\]
+    \item $\mathbb{Z} \times \mathbb{Z} \cong \langle a,b\ |\ ab = ba\rangle$
+\end{enumerate}
+\end{example}
+
+\noindent With the idea of group presentations, one might ask if there's some way of combining group presentations together. And indeed, that's the core idea of a {\bf Free Product}.
+
+\begin{definition}[Free Product] Let G, H be groups with presentations $G = \langle A_G | R_G \rangle$ and $H = \langle A_H | R_H \rangle$, then we define the free product ($*$) of G and H to be:
+\[G * H = \langle A_G \cup A_H | R_G \cup R_H \rangle\]
+\end{definition}
+
+\begin{example}
+There are several examples of free products that aligns with our pre-existing beliefs.
+\begin{enumerate}
+    \item {\bf (Free Product of Free Groups)} Let $F(A) = \langle a_1, ..., a_n\ |\ \rangle$, $F(B) = \langle b_1, ..., b_m\ |\ \rangle$, then $F(A)*F(B) = \langle a_1, ..., a_n, b_1, ..., b_n\ |\ \rangle$ is a free group of rank $m+n$.
+    \item Let $\mathbb{Z}/n\mathbb{Z} \cong \langle x\ |\ x^n = e\rangle$ and $\mathbb{Z}/m\mathbb{Z} \cong \langle y\ |\ y^m = e\rangle$, then 
+    \[\mathbb{Z}/n\mathbb{Z}*\mathbb{Z}/m\mathbb{Z} = \langle x, y\ |\ x^n = e, y^m = e\rangle\]
+\end{enumerate}
+\end{example}
+
+\begin{definition}[Free Product with Amalgamation] Let G, H, A be arbitrary groups with presentatons $G = \langle A_G | R_G \rangle$, $H = \langle A_H | R_H \rangle$, $A = \langle B | R_A \rangle$ with two injective homomorphisms $f_1: A \to G$ and $f_2: A \to H$, let
+\[R = \{f_1(a)f_2(a)^{-1}\ |\ a \in B\}\]
+Then we call the free product of G and H with amalgamation A:
+\[G *_A H = \{A_G \cup A_H | R_G \cup R_H \cup R\}\]
+
+\noindent The diagram below shows how $A$, $G$, and $H$ relate to each other by the maps $f_1$ and $f_2$ and produce the free product with amalgamation $A$.
+% https://q.uiver.app/?q=WzAsNCxbMCwxLCJBIl0sWzEsMCwiRyJdLFsxLDIsIkgiXSxbMiwxLCJHICpfQSBIIl0sWzAsMSwiZl8xIl0sWzAsMiwiZl8yIiwyXSxbMiwzLCIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSwzLCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	& G \\
+	A && {G *_A H} \\
+	& H
+	\arrow["{f_1}", from=2-1, to=1-2]
+	\arrow["{f_2}"', from=2-1, to=3-2]
+	\arrow[dashed, from=3-2, to=2-3]
+	\arrow[dashed, from=1-2, to=2-3]
+\end{tikzcd}\]
+
+\end{definition}
+
+\begin{example}
+Consider the free groups $G = \mathbb{Z}_{4} = \langle a | a^4\rangle$, $H = \mathbb{Z}_{6} = \langle b | b^6 \rangle$, and $A = \mathbb{Z}_{2} = \langle c | c^2 \rangle$.\\\\
+To find the free product of $G$ and $H$ with amalgamation $A$, we first ask how we can define injective homomorphisms $f_1: A \to G$ and $f_2: A \to H$. The subgroup of $G$ that is homomorphic to $A$ is $\langle e, a^2\rangle$. The subgroup of $H$ homomorphic to $A$ is $\langle e, b^3 \rangle$. So we define $f_1$ such that $f_1(c) = a^2$ and $f_2$ such that $f_2(c) = b^3$. We want our free product to have $f_1(c) = f_2(c)$ for all $c \in A$, so we let $ R = \{a^2b^{-3}\}$ and obtain the free product of $G$ and $H$ with amalgamation $A$: \[G *_A H = \langle a,b | a^4 = e,b^6=e,a^2b^{-3}=e \rangle\]
+\end{example}
